@@ -109,4 +109,8 @@
     width:80vh;
     border-radius:12px;
 }
-
+.booking{
+    border:1px solid rgb(191, 187, 187);
+    border-radius: 8px;
+    padding: 5px 5px 5px 5px;
+}

@@ -17,6 +17,7 @@ const passport=require("passport");
 const LocalStrategy=require("passport-local");
 const User=require("./models/user.js");
 const userRouter=require("./routes/user.js");
+const bookingRoutes = require("./routes/bookings.js");
 
 const listingsRouter=require("./routes/listing.js");
 const reviewsRouter=require("./routes/review.js");
@@ -41,6 +42,7 @@ app.set("views",path.join(__dirname,"/views"));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname,"/public")));
+
 
 const store = MongoStore.create({
     mongoUrl:dbUrl,
@@ -67,6 +69,8 @@ const sessionOptions={
 
 app.use(session(sessionOptions));
 app.use(flash());
+app.use(express.json());
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -76,9 +80,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next)=>{
+    res.locals.currUser=req.user;
     res.locals.success=req.flash("success");
     res.locals.error=req.flash("error");
-    res.locals.currUser=req.user;
     next();
 });
 
@@ -155,7 +159,9 @@ app.use((req,res,next)=>{
 
 app.use("/listings",listingsRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
+app.use("/listings/:id/bookings", bookingRoutes);
 app.use("/",userRouter);
+
 
 // //delete route
 // app.delete("/listings/:id",wrapAsync(async(req,res)=>{

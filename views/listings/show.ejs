@@ -13,7 +13,99 @@
             <p class="card-text"><%=listing.country%></p>
         </div>
     </div>
-    <br />
+    <br>
+    <br>
+
+    <div class="col-8 offset-3 mb-3">
+        <form id="bookingForm" action="/listings/<%= listing._id %>/bookings" method="POST">
+        <h4>For Bookings&nbsp;&nbsp;&nbsp;
+            <button
+                type="button"
+                class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#bookingModal"
+                >
+                Reserve
+            </button>
+        </h4>
+        </form>
+    </div>
+
+    <div class="modal fade" id="bookingModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+        <div class="modal-header">
+            <h5 class="modal-title">Confirm Your Booking</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <form action="/listings/<%= listing._id %>/bookings" method="POST">
+
+            <div class="modal-body">
+
+            <!-- Personal Details -->
+            <h6 class="mb-2">Guest Details</h6>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" name="guestName" class="form-control" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" name="phone" class="form-control" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                <label class="form-label">Address</label>
+                <input type="text" name="address" class="form-control" required>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Booking Dates -->
+            <h6 class="mb-2">Booking Dates</h6>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                <label class="form-label">Check-In</label>
+                <input type="date" name="checkIn" class="form-control" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                <label class="form-label">Check-Out</label>
+                <input type="date" name="checkOut" class="form-control" required>
+                </div>
+            </div>
+
+            </div>
+
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancel
+            </button>
+            <button type="button" class="btn btn-success" onclick="startPayment()">
+                Confirm Booking
+            </button>
+            </div>
+
+        </form>
+
+        </div>
+    </div>
+    </div>
+
+
     <%if(currUser && listing.owner._id.equals(currUser._id)){%>
     <div class="btns">
         <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark edit-btn col-1 offset-3">Edit</a>
@@ -84,6 +176,13 @@
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="/js/map.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+function startPayment() {
+  alert("startPayment called");
+}
+</script>
+
 
 
 

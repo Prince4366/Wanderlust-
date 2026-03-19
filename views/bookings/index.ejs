@@ -1,0 +1,11 @@
+<h2>My Bookings</h2>
+<% bookings.forEach(b => { %>
+    <div class="card mb-3">
+        <h5><%= b.listing.title %></h5>
+        <p>
+            <%= b.checkIn.toDateString() %> →
+            <%= b.checkOut.toDateString() %>
+        </p>
+        <p>Total ₹<%= b.totalPrice %></p>
+    </div>
+<% }) %>
