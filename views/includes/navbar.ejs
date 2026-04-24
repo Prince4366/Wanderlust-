@@ -38,11 +38,11 @@
       </div>
       <div class="navbar-nav ms-auto">
       <a class="nav-link" href="/listings/new">Airbnb Your Home</a>
-        <% if(!currUser) { %>
+        <% if(typeof currUser === "undefined" || !currUser) { %>
           <a class="nav-link active" href="/signup"><b>Sign up</b></a>
           <a class="nav-link" href="/login"><b>Log in</b></a>
         <% } %>
-        <% if(currUser) { %>
+        <% if(typeof currUser === "undefined" || !currUser) { %>
           <a class="nav-link" href="/logout">Log out</a>
         <% } %>
       </div>
